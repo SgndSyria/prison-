@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بحث عن أسماء السجناء</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header img {
+            width: 180px; /* تكبير حجم صورة العلم */
+            height: auto;
+            border-radius: 5px;
+        }
+
+        h1 {
+            color: white;
+            margin-top: 10px;
+        }
+
+        .message {
+            color: red; /* لون النص الأحمر */
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .content {
+            padding: 30px;
+            background-color: #fff;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input, button {
+            padding: 12px;
+            margin: 10px;
+            font-size: 16px;
+            width: 80%;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+
+        #results ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #results ul li {
+            background-color: #f8f9fa;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- علم الثورة السورية -->
+        <img src="https://i.ibb.co/44fFp45/20340283771733799654.jpg" alt="سجن صيدنايا">
+        <h1>بحث عن أسماء السجناء</h1>
+        <div class="message">هذا الموقع مخصص للبحث عن سجناء صيدنايا كل المعلومات الموجودة هي معلومات مأخوذة من مواقع التواصل الاجتماعي ولسنا متأكدين من صحة المعلومات عل وعسى تعم الفائدة ويسهل العثور على المفقودين الموقع يخضع لعملية تحديث دائمة للبيانات يرجى النشر على أوسع نطاق حتى تعم الفائدة اذا كان لديك اي معلومات صحيحةالرجاء التواصل معنا حتى يتم اضافتة (2250718620723+) 
+        </div>
+    </header>
+
+    <div class="content">
+        <!-- حقل البحث -->
+        <input type="text" id="searchQuery" placeholder="ابحث عن اسم السجين" />
+        <button onclick="searchPrisoners()">بحث</button>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        // تحميل البيانات من ملف JSON
+        let prisoners = [];
+
+        fetch('prisoners.json')
+            .then(response => response.json())
+            .then(data => {
+                prisoners = data;
+            })
+            .catch(error => {
+                console.error("خطأ في تحميل الأسماء:", error);
+            });
+
+        // دالة البحث
+        function searchPrisoners() {
+            const query = document.getElementById("searchQuery").value.trim().toLowerCase();
+            const resultsDiv = document.getElementById("results");
+
+            if (query === "") {
+                resultsDiv.innerHTML = "<p>الرجاء إدخال اسم للبحث</p>";
+                return;
+            }
+
+            const filteredResults = prisoners.filter(prisoner => prisoner.toLowerCase().includes(query));
+
+            if (filteredResults.length > 0) {
+                resultsDiv.innerHTML = "<h3>النتائج:</h3><ul>" + filteredResults.map(prisoner => `<li>${prisoner}</li>`).join("") + "</ul>";
+            } else {
+                resultsDiv.innerHTML = "<p>لا توجد نتائج مطابقة</p>";
+            }
+        }
+    </script>
+</body>
+</html>
